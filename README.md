@@ -1,6 +1,8 @@
 # Grafica
 A Paperjs, web based Vector Editor
 
+![screenshot](https://cloud.githubusercontent.com/assets/8925621/7442317/4c81424e-f115-11e4-99d0-4deadd217fd4.png)
+
 Currently we have these features:
 
 Buggy tools:
