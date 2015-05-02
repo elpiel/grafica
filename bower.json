@@ -5,7 +5,7 @@
   "authors": [
     "twify <elpiel93@gmail.com>"
   ],
-  "description": "Vectoring Editor based on Paper.js",
+  "description": "Vector Editor based on Paper.js",
   "main": "[index.html, js/canvas.js, js/main.js]",
   "keywords": [
     "paper.js",
