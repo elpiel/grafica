@@ -1,0 +1,31 @@
+{
+  "name": "grafica",
+  "version": "0.0.1",
+  "homepage": "https://github.com/twify93/grafica",
+  "authors": [
+    "twify <elpiel93@gmail.com>"
+  ],
+  "description": "Vectoring Editor based on Paper.js",
+  "main": "[index.html, js/canvas.js, js/main.js]",
+  "keywords": [
+    "paper.js",
+    "vectoring",
+    "editor"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "colpick": "~2.0.2",
+    "jquery": "~2.1.3",
+    "jqueryui": "~1.11.4",
+    "paper": "~0.9.22"
+  }
+}
