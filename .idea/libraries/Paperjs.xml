@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Paperjs" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/bower_components/paper" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/bower_components/paper" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

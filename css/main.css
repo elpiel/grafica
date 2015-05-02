@@ -1,0 +1,57 @@
+#mainCanvas {
+    width: 1200px;
+    height: 500px;
+    border: 1px solid #000000;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.colorPicker {
+    width: 30px;
+    height: 30px;
+    margin: 5px auto 5px auto;
+    /*border: 1px solid white;*/
+    background: url(../images/select.png) center;
+}
+
+#thickness-box {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto;
+    width: 50px;
+    background: black;
+    height: 1px;
+}
+
+#thickness-outer-box {
+    height: 40px;
+    border: 1px solid black;
+}
+
+#slider {
+    margin-top: 10px;
+}
+
+.panel-colon {
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.glyphicon-one-fine-empty-dot:before {
+    content: "\25cb";
+}
+
+.glyphicon-empty-checkbox:before {
+    content: "";
+    border: 1px solid black;
+    height: 10px;
+    width: 17px;
+    display: inline-block;
+}
+
+.hovered{
+    background-color: #f5f5f5;
+}

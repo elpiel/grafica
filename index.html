@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" src="js/canvas.js" canvas="mainCanvas"></script>
+    <link rel="stylesheet" href="bower_components/jqueryui/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/colpick/css/colpick.css">
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <script>
+
+        var pressedKeys = [];
+
+        function removeValue(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+                what = a[--L];
+                while ((ax = arr.indexOf(what)) !== -1) {
+                    arr.splice(ax, 1);
+                }
+            }
+            return arr;
+        }
+
+        document.onkeydown = function (e) {
+            var keyPress;
+
+            if (typeof event !== 'undefined') {
+                keyPress = event.keyCode;
+            }
+            else if (e) {
+                keyPress = e.which;
+            }
+
+            pressedKeys.push(keyPress);
+        };
+
+        document.onkeyup = function (e) {
+            var keyPress;
+
+            if (typeof event !== 'undefined') {
+                keyPress = event.keyCode;
+            }
+            else if (e) {
+                keyPress = e.which;
+            }
+
+            removeValue(pressedKeys, keyPress);
+        };
+    </script>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/paper/dist/paper-full.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<!--<div class="container">-->
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Мамипулация с файла</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-1">
+
+                        <form runat="server" class="hidden">
+                            <div class="hidden" id="svg-loaded"></div>
+                            <input type='file' id="fileInput">
+                        </form>
+                        <i id="importSVG"
+                           class="glyphicon glyphicon-folder-open pointer"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="Отвори"></i>
+                    </div>
+                    <div class="col-md-1">
+                        <i
+                            id="exportSVG"
+                            class="glyphicon glyphicon-floppy-disk pointer"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Запиши"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Информация за Canvas</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <div class="col-md-6">
+                            X: <b id="xCoordinates">0</b>
+                        </div>
+                        <div class="col-md-6">
+                            Y: <b id="yCoordinates">0</b>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        Име: <b id="elementName"></b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2" style="padding-right: 0;">
+            <!-- START - Panel with tools -->
+            <div class="col-md-12 panel-colon">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Инструменти</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <i
+                                class="glyphicon glyphicon-hand-up tool pointer btn btn-default"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Селектирай"
+                                id="selectTool"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="glyphicon glyphicon-move tool pointer btn btn-default"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Премести"
+                               id="moveTool"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="glyphicon glyphicon-one-fine-empty-dot tool pointer btn btn-default"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Елипса/Окръжност"
+                               id="ellipseTool"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="glyphicon glyphicon-empty-checkbox tool pointer btn btn-default"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Правоъгълник"
+                               id="rectangleTool">
+                            </i>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="glyphicon glyphicon-pencil tool pointer btn btn-default"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Молив"
+                               id="pencilTool"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="glyphicon glyphicon-minus tool pointer btn btn-default"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Линия"
+                               id="lineTool"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <i class="glyphicon glyphicon-text-background tool pointer btn btn-default"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Нова Елипса"
+                               id="ellipse2Tool"></i>
+                        </div>
+
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+                <!-- END - Panel with tools -->
+            </div>
+            <div class="col-md-12 panel-colon">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Цветове</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <h6>Контур</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="outerColorPicker" class="colorPicker"></div>
+                            <input type="hidden" id="outer-color" value="000000">
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Пълнеж</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="innerColorPicker" class="colorPicker"></div>
+                            <input type="hidden" id="inner-color" value="ffffff">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 panel-colon">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Дебелина на Линията</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12" id="thickness-outer-box">
+                                <div id="thickness-box"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="slider"></div>
+                                <input type="hidden" id="thickness" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" style="padding-left: 10px; padding-right: 0;">
+            <canvas id="mainCanvas"></canvas>
+        </div>
+        <div class="col-md-2">
+            <div class="col-md-12 panel-colon">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Име на обекта</h3>
+                    </div>
+                    <div class="panel-body">
+                        <input type="text" id="name" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 panel-colon">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Layers</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" id="layers">
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <input type="hidden" id="layerEditName">
+                        <input type="text" id="layerName">
+                        <i class="glyphicon glyphicon-plus-sign pointer" id="layerButton"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="bower_components/jqueryui/jquery-ui.js"></script>
+<script src="bower_components/colpick/js/colpick.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
